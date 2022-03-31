@@ -30,71 +30,82 @@ import pprint
 #     f.write(user_object)
 
 user_object2 = {'city': {'coord': {'lat': 37.7749, 'lon': -122.4194},
-          'country': 'US',
-          'id': 5391959,
-          'name': 'San Francisco',
-          'population': 805235,
-          'timezone': -25200},
- 'cnt': 10,
- 'cod': '200',
- 'list': [{'clouds': 96,
-           'deg': 272,
-           'dt': 1648756800,
-           'feels_like': {'day': 285.53,
-                          'eve': 284.79,
-                          'morn': 282.37,
-                          'night': 283.06},
-           'gust': 5.88,
-           'humidity': 69,
-           'pop': 0,
-           'pressure': 1014,
-           'speed': 4.5,
-           'sunrise': 1648734969,
-           'sunset': 1648780267,
-           'temp': {'day': 286.35,
-                    'eve': 285.61,
-                    'max': 286.77,
-                    'min': 282.3,
-                    'morn': 282.37,
-                    'night': 283.8},
-           'weather': [{'description': 'overcast clouds',
-                        'icon': '04d',
-                        'id': 804,
-                        'main': 'Clouds'}]},
-          {'clouds': 0,
-           'deg': 267,
-           'dt': 1648843200,
-           'feels_like': {'day': 287.12,
-                          'eve': 284.41,
-                          'morn': 283.04,
-                          'night': 283.48},
-           'gust': 5.47,
-           'humidity': 64,
-           'pop': 0,
-           'pressure': 1014,
-           'speed': 5.1,
-           'sunrise': 1648821278,
-           'sunset': 1648866721,
-           'temp': {'day': 287.92,
-                    'eve': 285.12,
-                    'max': 288.09,
-                    'min': 283.04,
-                    'morn': 283.04,
-                    'night': 284.16},
-           'weather': [{'description': 'sky is clear',
-                        'icon': '01d',
-                        'id': 800,
-                        'main': 'Clear'}]}]}
+                         'country': 'US',
+                         'id': 5391959,
+                         'name': 'San Francisco',
+                         'population': 805235,
+                         'timezone': -25200},
+                'cnt': 10,
+                'cod': '200',
+                'list': [{'clouds': 96,
+                          'deg': 272,
+                          'dt': 1648756800,
+                          'feels_like': {'day': 285.53,
+                                         'eve': 284.79,
+                                         'morn': 282.37,
+                                         'night': 283.06},
+                          'gust': 5.88,
+                          'humidity': 69,
+                          'pop': 0,
+                          'pressure': 1014,
+                          'speed': 4.5,
+                          'sunrise': 1648734969,
+                          'sunset': 1648780267,
+                          'temp': {'day': 286.35,
+                                   'eve': 285.61,
+                                   'max': 286.77,
+                                   'min': 282.3,
+                                   'morn': 282.37,
+                                   'night': 283.8},
+                          'weather': [{'description': 'overcast clouds',
+                                       'icon': '04d',
+                                       'id': 804,
+                                       'main': 'Clouds'}]},
+                         {'clouds': 0,
+                          'deg': 267,
+                          'dt': 1648843200,
+                          'feels_like': {'day': 287.12,
+                                         'eve': 284.41,
+                                         'morn': 283.04,
+                                         'night': 283.48},
+                          'gust': 5.47,
+                          'humidity': 64,
+                          'pop': 0,
+                          'pressure': 1014,
+                          'speed': 5.1,
+                          'sunrise': 1648821278,
+                          'sunset': 1648866721,
+                          'temp': {'day': 287.92,
+                                   'eve': 285.12,
+                                   'max': 288.09,
+                                   'min': 283.04,
+                                   'morn': 283.04,
+                                   'night': 284.16},
+                          'weather': [{'description': 'sky is clear',
+                                       'icon': '01d',
+                                       'id': 800,
+                                       'main': 'Clear'}]}]}
 
 historia_opadow = {}
 
 # print(user_object2["list"])
-# print(user_object2["list"][0:len(user_object2["list"])]["pop"])
-
+counter = 0
+licznik = 0
 for idx in user_object2["list"][0:len("list")]:
     # if "pop" in idx:
     #     print(["pop"])
-    pprint.pprint(idx)
+    # pprint.pprint(idx)
+    counter += 1
+    print(counter, ":", idx)
+    # for idy in idx:
+    #     licznik += 1
+    #     print(licznik, ":", idx["clouds"])
+
+
+
+
+
+
 
 # if ["pop"] in user_object2["list"]:
 #     print(["pop"])
