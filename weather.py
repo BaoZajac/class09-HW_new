@@ -22,7 +22,7 @@ import pprint
 
 # response = requests.get(url, headers=headers, params=params)
 #
-# from datetime import datetime    #TODO: dlaczego nie zaciąga tu fromtimestamp z import datetime?
+from datetime import datetime    #TODO: dlaczego nie zaciąga tu fromtimestamp z import datetime?
 # pprint.pprint(response.json())
 #
 # user_object = (response.json())
@@ -86,20 +86,15 @@ user_object2 = {'city': {'coord': {'lat': 37.7749, 'lon': -122.4194},
                                        'id': 800,
                                        'main': 'Clear'}]}]}
 
-historia_opadow = {}
+history_or_rain = {}
 
-# print(user_object2["list"])
-counter = 0
-licznik = 0
-for idx in user_object2["list"][0:len("list")]:
-    # if "pop" in idx:
-    #     print(["pop"])
-    # pprint.pprint(idx)
-    counter += 1
-    print(counter, ":", idx)
-    # for idy in idx:
-    #     licznik += 1
-    #     print(licznik, ":", idx["clouds"])
+for element in user_object2["list"]:
+    rain = element.get("pop", 0)
+    date_info = element["dt"]
+    day = datetime.fromtimestamp(date_info).date()
+    history_or_rain[str(day)] = rain
+
+print(history_or_rain)
 
 
 
@@ -107,8 +102,7 @@ for idx in user_object2["list"][0:len("list")]:
 
 
 
-# if ["pop"] in user_object2["list"]:
-#     print(["pop"])
+
 
 # for date in user_object["list"]:
 #     if datetime.fromtimestamp(date["dt"]).date() == date_to_check:
