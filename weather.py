@@ -19,15 +19,13 @@ import pprint
 # url = "https://community-open-weather-map.p.rapidapi.com/forecast/daily"
 # params = {"q": "san francisco,us", "lat": "35", "lon": "139", "cnt": "10", "units": "metric or imperial"}
 # headers = {"X-RapidAPI-Host": "community-open-weather-map.p.rapidapi.com", "X-RapidAPI-Key": sys.argv[1]}
-
-# response = requests.get(url, headers=headers, params=params)
 #
+# response = requests.get(url, headers=headers, params=params)
+
 from datetime import datetime    #TODO: dlaczego nie zaciąga tu fromtimestamp z import datetime?
 # pprint.pprint(response.json())
-#
+
 # user_object = (response.json())
-# with open("output.txt", "w") as f:
-#     f.write(user_object)
 
 user_object2 = {'city': {'coord': {'lat': 37.7749, 'lon': -122.4194},
                          'country': 'US',
@@ -86,15 +84,20 @@ user_object2 = {'city': {'coord': {'lat': 37.7749, 'lon': -122.4194},
                                        'id': 800,
                                        'main': 'Clear'}]}]}
 
-history_or_rain = {}
 
-for element in user_object2["list"]:
+# zapisanie danych pogodowych do pliku .txt
+history_of_rain = {}
+
+# for element in user_object["list"]:  # <- z danych z API
+for element in user_object2["list"]:  # <- z wewnętrznych danych
     rain = element.get("pop", 0)
+    # clouds = element.get("clouds", 0)
     date_info = element["dt"]
     day = datetime.fromtimestamp(date_info).date()
-    history_or_rain[str(day)] = rain
+    history_of_rain[str(day)] = rain  # , clouds
 
-print(history_or_rain)
+with open("history_of_weather.txt", "w") as f:
+    f.write(str(history_of_rain))
 
 
 
