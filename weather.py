@@ -2,18 +2,49 @@ import sys
 import datetime
 import requests
 import pprint
+import json
+from func import spr_daty_w_historii
 
 
-# if len(sys.argv) == 3:  # podano datę na wejściu
-#     API_key = sys.argv[1]
-#     date_to_check = sys.argv[2]    # TODO: sprawdzić popoprawność podania daty?
-#     print(date_to_check)
-# elif len(sys.argv) == 2:  # nie podano daty na wejściu
-#     API_key = sys.argv[1]
-#     date_to_check = datetime.datetime.now().date() + datetime.timedelta(days=1)
-#     print(date_to_check)
-# else:
-#     print("Błąd - wprowadzono niepoprawne dane wejściowe z std")
+with open("history_of_weather.json", "r") as f:
+    saved_history = json.load(f)
+
+if len(sys.argv) == 3:  # podano datę na wejściu
+    API_key = sys.argv[1]
+    date_to_check = sys.argv[2]    # TODO: sprawdzić popoprawność podania daty?
+    if date_to_check in saved_history:
+        print(f"Opady w dniu {date_to_check}: {saved_history[date_to_check]}")
+    else:
+        # saved_history["2022-04-02"] = 0.3
+        # print(saved_history)
+        # ...
+        from datetime import datetime   #TODO: dlaczego nie zaciąga tu fromtimestamp z import datetime?
+        url = "https://community-open-weather-map.p.rapidapi.com/forecast/daily"
+        params = {"q": "san francisco,us", "lat": "35", "lon": "139", "cnt": "10", "units": "metric or imperial"}
+        headers = {"X-RapidAPI-Host": "community-open-weather-map.p.rapidapi.com", "X-RapidAPI-Key": sys.argv[1]}
+        response = requests.get(url, headers=headers, params=params)
+        user_object = (response.json())
+        # history_of_rain = {}
+        for element in user_object["list"]:
+            rain = element.get("pop", 0)
+            date_info = element["dt"]
+            day = datetime.fromtimestamp(date_info).date()
+            # history_of_rain[str(day)] = rain
+            saved_history[str(day)] = rain
+        print(saved_history)
+        print(f"Opady w dniu {date_to_check}: {saved_history[date_to_check]}")
+        with open("history_of_weather.json", "w") as f:  #TODO: nadpisuje wszystko, ZMIENIĆ na dopisywanie, chyba, że nie trzeba?
+            json.dump(saved_history, f)
+            # f.write(str(saved_history))
+        # with open("history_of_weather.txt", "w") as f:
+        #     f.write(str(saved_history))
+
+elif len(sys.argv) == 2:  # nie podano daty na wejściu
+    API_key = sys.argv[1]
+    date_to_check = datetime.datetime.now().date() + datetime.timedelta(days=1)
+    print(date_to_check)
+else:
+    print("Błąd - wprowadzono niepoprawne dane wejściowe z std")
 
 
 # url = "https://community-open-weather-map.p.rapidapi.com/forecast/daily"
@@ -96,8 +127,11 @@ for element in user_object2["list"]:  # <- z wewnętrznych danych
     day = datetime.fromtimestamp(date_info).date()
     history_of_rain[str(day)] = rain  # , clouds
 
-with open("history_of_weather.txt", "w") as f:
-    f.write(str(history_of_rain))
+# with open("history_of_weather.txt", "w") as f:
+#     f.write(str(history_of_rain))
+
+# with open("history_of_weather.json", "w") as f:
+#     f.write(str(history_of_rain))
 
 
 
